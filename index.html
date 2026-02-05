@@ -1,0 +1,2198 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="description" content="WaveDjing – Professionelles DJing für Hochzeiten, Geburtstage & Events. Jetzt buchen und dein Event unvergesslich machen!">
+<meta name="keywords" content="DJ, WaveDjing, Hochzeit DJ, Geburtstag DJ, Event DJ, buchen, Österreich">
+<meta name="author" content="WaveDjing">
+<meta name="theme-color" content="#008080">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="WaveDjing – Dein Sound. Dein Event. Dein Moment.">
+<meta property="og:description" content="Professionelles DJing für Hochzeiten, Geburtstage & Events. Jetzt buchen!">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wavedjing.com">
+<title>WaveDjing – Events | Geburtstage | Hochzeiten</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET & BASE ===================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --win-bg: #008080;
+  --win-gray: #c0c0c0;
+  --win-dark: #808080;
+  --win-light: #dfdfdf;
+  --win-white: #ffffff;
+  --win-black: #000000;
+  --win-blue: #000080;
+  --win-blue-active: #0000aa;
+  --win-highlight: #00ffff;
+  --win-yellow: #ffff00;
+  --win-red: #ff0000;
+  --win-pink: #ff69b4;
+  --win-green: #00ff00;
+  --neon-cyan: #00e5ff;
+  --neon-magenta: #ff00ff;
+  --neon-purple: #b000ff;
+  --font-system: 'VT323', monospace;
+  --font-pixel: 'Press Start 2P', monospace;
+  --border-raised: inset -2px -2px 0 #000, inset 2px 2px 0 #fff, inset -3px -3px 0 #808080, inset 3px 3px 0 #dfdfdf;
+  --border-sunken: inset 2px 2px 0 #000, inset -2px -2px 0 #fff, inset 3px 3px 0 #808080, inset -3px -3px 0 #dfdfdf;
+  --border-window: inset -2px -2px 0 #000, inset 2px 2px 0 #dfdfdf, inset -3px -3px 0 #808080, inset 3px 3px 0 #fff;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-system);
+  background: var(--win-bg);
+  color: var(--win-black);
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding-bottom: 44px;
+  -webkit-tap-highlight-color: transparent;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M0 0L0 14L4 10L7 16L9 15L6 9L11 9Z' fill='white' stroke='black' stroke-width='1'/%3E%3C/svg%3E"), auto;
+}
+
+/* ===================== SCANLINES OVERLAY ===================== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 10000;
+}
+
+/* ===================== DESKTOP ICONS ===================== */
+.desktop {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 100;
+}
+
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 4px;
+  border: 1px solid transparent;
+  transition: all 0.1s;
+}
+
+.desktop-icon:hover {
+  background: rgba(0,0,128,0.3);
+  border: 1px dotted #fff;
+}
+
+.desktop-icon:active {
+  background: rgba(0,0,128,0.5);
+}
+
+.desktop-icon .icon-img {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  image-rendering: pixelated;
+}
+
+.desktop-icon .icon-label {
+  font-family: var(--font-system);
+  font-size: 14px;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  text-align: center;
+  max-width: 80px;
+}
+
+/* ===================== WIN95 WINDOW ===================== */
+.win-window {
+  background: var(--win-gray);
+  box-shadow: var(--border-window);
+  margin: 20px auto;
+  max-width: 1000px;
+  position: relative;
+  animation: windowOpen 0.3s ease-out;
+}
+
+@keyframes windowOpen {
+  0% { transform: scale(0.1); opacity: 0; }
+  50% { transform: scale(1.02); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.win-titlebar {
+  background: linear-gradient(90deg, var(--win-blue), #1084d0);
+  color: white;
+  padding: 3px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-system);
+  font-size: 16px;
+  font-weight: bold;
+  user-select: none;
+}
+
+.win-titlebar .title-left {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.win-titlebar .title-icon {
+  font-size: 14px;
+}
+
+.win-titlebar-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.win-btn {
+  width: 18px;
+  height: 18px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  border: none;
+  font-family: var(--font-system);
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.win-btn:active {
+  box-shadow: var(--border-sunken);
+}
+
+.win-menubar {
+  background: var(--win-gray);
+  padding: 2px 0;
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #808080;
+}
+
+.win-menu-item {
+  padding: 2px 8px;
+  font-family: var(--font-system);
+  font-size: 15px;
+  cursor: pointer;
+  position: relative;
+}
+
+.win-menu-item:hover {
+  background: var(--win-blue);
+  color: white;
+}
+
+.win-menu-item .underline {
+  text-decoration: underline;
+}
+
+.win-content {
+  padding: 16px;
+}
+
+.win-statusbar {
+  background: var(--win-gray);
+  border-top: 2px solid #808080;
+  padding: 3px 6px;
+  font-family: var(--font-system);
+  font-size: 14px;
+  display: flex;
+  gap: 8px;
+}
+
+.win-statusbar .status-section {
+  box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #fff;
+  padding: 1px 6px;
+  flex: 1;
+}
+
+/* ===================== TASKBAR ===================== */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 36px;
+  background: var(--win-gray);
+  box-shadow: inset 0 2px 0 #fff;
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  z-index: 9999;
+  gap: 4px;
+}
+
+.start-button {
+  height: 28px;
+  padding: 2px 8px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  border: none;
+  font-family: var(--font-system);
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.start-button:active {
+  box-shadow: var(--border-sunken);
+}
+
+.start-button .win-logo {
+  width: 18px;
+  height: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 1px;
+}
+
+.start-button .win-logo div:nth-child(1) { background: #ff0000; }
+.start-button .win-logo div:nth-child(2) { background: #00ff00; }
+.start-button .win-logo div:nth-child(3) { background: #0000ff; }
+.start-button .win-logo div:nth-child(4) { background: #ffff00; }
+
+.taskbar-divider {
+  width: 2px;
+  height: 24px;
+  border-left: 1px solid #808080;
+  border-right: 1px solid #fff;
+  margin: 0 2px;
+}
+
+.taskbar-item {
+  height: 26px;
+  padding: 2px 8px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  font-family: var(--font-system);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+  text-decoration: none;
+  color: var(--win-black);
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.taskbar-item:active, .taskbar-item.active {
+  box-shadow: var(--border-sunken);
+  background: #b0b0b0;
+}
+
+.taskbar-clock {
+  margin-left: auto;
+  height: 26px;
+  padding: 2px 10px;
+  box-shadow: inset 1px 1px 0 #808080, inset -1px -1px 0 #fff;
+  font-family: var(--font-system);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ===================== HERO SECTION ===================== */
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 60px;
+  position: relative;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(0,0,255,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255,0,255,0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #005858 0%, #008080 30%, #006060 100%);
+  z-index: 0;
+}
+
+.hero-window {
+  max-width: 800px;
+  width: 100%;
+  z-index: 1;
+}
+
+.hero-content {
+  text-align: center;
+  padding: 30px 20px;
+}
+
+.hero-logo {
+  font-family: var(--font-pixel);
+  font-size: 42px;
+  color: var(--win-blue);
+  text-shadow: 3px 3px 0 var(--neon-cyan), -1px -1px 0 var(--neon-magenta);
+  margin-bottom: 8px;
+  animation: glitch 3s infinite;
+  letter-spacing: -2px;
+}
+
+@keyframes glitch {
+  0%, 90%, 100% { text-shadow: 3px 3px 0 var(--neon-cyan), -1px -1px 0 var(--neon-magenta); }
+  92% { text-shadow: -3px 2px 0 var(--neon-magenta), 2px -2px 0 var(--neon-cyan); }
+  94% { text-shadow: 3px -3px 0 var(--neon-cyan), -2px 3px 0 var(--neon-magenta); }
+  96% { text-shadow: -2px -2px 0 var(--win-yellow), 3px 1px 0 var(--neon-cyan); }
+}
+
+.hero-subtitle {
+  font-family: var(--font-system);
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.hero-tagline {
+  font-family: var(--font-system);
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.4;
+}
+
+.hero-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.badge {
+  background: var(--win-blue);
+  color: white;
+  padding: 4px 14px;
+  font-family: var(--font-system);
+  font-size: 18px;
+  box-shadow: var(--border-raised);
+}
+
+.badge.gold { background: #b8860b; }
+.badge.red { background: #8b0000; }
+
+.hero-cta {
+  display: inline-block;
+  padding: 10px 40px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  color: var(--win-black);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.1s;
+  border: none;
+}
+
+.hero-cta:active {
+  box-shadow: var(--border-sunken);
+  transform: translate(1px, 1px);
+}
+
+.hero-cta:hover {
+  background: #d0d0d0;
+}
+
+/* Marquee */
+.marquee-bar {
+  background: var(--win-blue);
+  color: var(--win-yellow);
+  padding: 4px 0;
+  overflow: hidden;
+  font-family: var(--font-system);
+  font-size: 18px;
+  white-space: nowrap;
+}
+
+.marquee-text {
+  display: inline-block;
+  animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ===================== EQUALIZER ANIMATION ===================== */
+.equalizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  height: 60px;
+  margin: 20px 0;
+}
+
+.eq-bar {
+  width: 12px;
+  background: linear-gradient(to top, var(--neon-cyan), var(--neon-magenta));
+  animation: eqBounce 0.8s ease-in-out infinite alternate;
+  box-shadow: 0 0 6px rgba(0,229,255,0.5);
+}
+
+.eq-bar:nth-child(1) { animation-duration: 0.6s; height: 20px; }
+.eq-bar:nth-child(2) { animation-duration: 0.7s; height: 35px; }
+.eq-bar:nth-child(3) { animation-duration: 0.5s; height: 50px; }
+.eq-bar:nth-child(4) { animation-duration: 0.8s; height: 30px; }
+.eq-bar:nth-child(5) { animation-duration: 0.6s; height: 45px; }
+.eq-bar:nth-child(6) { animation-duration: 0.9s; height: 25px; }
+.eq-bar:nth-child(7) { animation-duration: 0.55s; height: 40px; }
+.eq-bar:nth-child(8) { animation-duration: 0.75s; height: 55px; }
+.eq-bar:nth-child(9) { animation-duration: 0.65s; height: 30px; }
+.eq-bar:nth-child(10) { animation-duration: 0.85s; height: 20px; }
+
+@keyframes eqBounce {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* ===================== SECTION WINDOWS ===================== */
+.section-container {
+  padding: 20px 20px 60px;
+}
+
+/* ===================== ABOUT SECTION ===================== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.about-text {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.about-text p {
+  margin-bottom: 12px;
+}
+
+.stats-box {
+  background: var(--win-black);
+  color: var(--neon-cyan);
+  padding: 16px;
+  box-shadow: var(--border-sunken);
+  font-family: var(--font-system);
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #333;
+  font-size: 18px;
+}
+
+.stat-item:last-child { border-bottom: none; }
+
+.stat-value {
+  color: var(--neon-magenta);
+  font-weight: bold;
+}
+
+/* ===================== SERVICES ===================== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.service-card {
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  padding: 16px;
+  text-align: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.service-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--border-raised), 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.service-card:active {
+  box-shadow: var(--border-sunken);
+  transform: translateY(0);
+}
+
+.service-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.service-title {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  color: var(--win-blue);
+  margin-bottom: 8px;
+}
+
+.service-desc {
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* ===================== MIXES SECTION ===================== */
+.mixes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.mix-card {
+  background: #1a1a2e;
+  box-shadow: var(--border-sunken);
+  padding: 16px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.mix-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0,229,255,0.05), transparent);
+  animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+  100% { left: 100%; }
+}
+
+.mix-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.mix-genre {
+  background: var(--neon-magenta);
+  color: #fff;
+  padding: 2px 8px;
+  font-family: var(--font-system);
+  font-size: 14px;
+}
+
+.mix-duration {
+  color: var(--neon-cyan);
+  font-size: 16px;
+}
+
+.mix-title {
+  font-family: var(--font-pixel);
+  font-size: 11px;
+  color: var(--neon-cyan);
+  margin-bottom: 6px;
+}
+
+.mix-description {
+  font-size: 16px;
+  color: #aaa;
+  margin-bottom: 12px;
+}
+
+.mix-player {
+  background: #0d0d1a;
+  box-shadow: var(--border-sunken);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.play-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.play-btn:active { box-shadow: var(--border-sunken); }
+
+.waveform {
+  flex: 1;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.wave-line {
+  width: 3px;
+  background: var(--neon-cyan);
+  opacity: 0.6;
+  border-radius: 1px;
+}
+
+.coming-soon-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pixel);
+  font-size: 14px;
+  color: var(--win-yellow);
+  text-shadow: 0 0 10px var(--win-yellow);
+  backdrop-filter: blur(2px);
+}
+
+/* ===================== LIVE SECTION ===================== */
+.live-content {
+  text-align: center;
+}
+
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1a1a1a;
+  padding: 8px 20px;
+  margin-bottom: 20px;
+  font-family: var(--font-pixel);
+  font-size: 12px;
+  color: var(--win-red);
+  box-shadow: var(--border-sunken);
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background: var(--win-red);
+  border-radius: 50%;
+  animation: livePulse 1s infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--win-red); }
+  50% { opacity: 0.3; box-shadow: none; }
+}
+
+.live-screen {
+  background: #0a0a0a;
+  box-shadow: var(--border-sunken);
+  padding: 40px;
+  margin: 16px 0;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.live-screen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 1px,
+    rgba(255,255,255,0.02) 1px,
+    rgba(255,255,255,0.02) 2px
+  );
+  pointer-events: none;
+}
+
+.no-signal {
+  font-family: var(--font-pixel);
+  font-size: 16px;
+  color: #444;
+  animation: staticFlicker 0.5s infinite;
+}
+
+@keyframes staticFlicker {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
+}
+
+.live-info {
+  font-size: 18px;
+  color: #888;
+  margin-top: 16px;
+}
+
+.live-schedule-text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-top: 16px;
+  text-align: left;
+}
+
+/* ===================== BOOKING FORM ===================== */
+.booking-form {
+  max-width: 100%;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form-group.full {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-family: var(--font-system);
+  font-size: 16px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  font-family: var(--font-system);
+  font-size: 16px;
+  padding: 4px 6px;
+  background: #fff;
+  box-shadow: var(--border-sunken);
+  border: none;
+  outline: none;
+  resize: vertical;
+}
+
+.form-group textarea {
+  min-height: 80px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  background: #fffff0;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--win-blue);
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.btn-95 {
+  padding: 6px 24px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  border: none;
+  font-family: var(--font-system);
+  font-size: 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-95:active {
+  box-shadow: var(--border-sunken);
+  transform: translate(1px, 1px);
+}
+
+.btn-95:hover {
+  background: #d0d0d0;
+}
+
+.btn-95.primary {
+  font-weight: bold;
+  outline: 2px solid var(--win-black);
+  outline-offset: -4px;
+}
+
+/* ===================== CONTACT INFO ===================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.contact-card {
+  background: #fff;
+  box-shadow: var(--border-sunken);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-icon {
+  font-size: 28px;
+  width: 40px;
+  text-align: center;
+}
+
+.contact-info-text {
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.contact-info-text strong {
+  color: var(--win-blue);
+}
+
+/* ===================== SUCCESS DIALOG ===================== */
+.dialog-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+
+.dialog-overlay.show {
+  display: flex;
+}
+
+.dialog-box {
+  background: var(--win-gray);
+  box-shadow: var(--border-window);
+  max-width: 400px;
+  width: 90%;
+  animation: windowOpen 0.2s ease-out;
+}
+
+.dialog-content {
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.dialog-icon {
+  font-size: 36px;
+  flex-shrink: 0;
+}
+
+.dialog-text {
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+.dialog-buttons {
+  display: flex;
+  justify-content: center;
+  padding: 10px 20px 16px;
+}
+
+/* ===================== SCROLLBAR ===================== */
+::-webkit-scrollbar { width: 18px; }
+::-webkit-scrollbar-track {
+  background: var(--win-gray);
+  box-shadow: inset 1px 1px 0 #808080;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+}
+::-webkit-scrollbar-button {
+  height: 18px;
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+}
+
+/* ===================== FOOTER ===================== */
+.footer-bar {
+  background: var(--win-gray);
+  box-shadow: var(--border-raised);
+  padding: 12px 20px;
+  text-align: center;
+  margin: 0 20px 50px;
+  font-size: 16px;
+}
+
+.footer-bar a {
+  color: var(--win-blue);
+  text-decoration: underline;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+/* Tablet */
+@media (max-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .desktop { display: none; }
+
+  /* Hero */
+  .hero-section {
+    min-height: auto;
+    padding: 20px 8px 40px;
+  }
+
+  .hero-content {
+    padding: 16px 10px;
+  }
+
+  .hero-logo {
+    font-size: 20px;
+    letter-spacing: -1px;
+  }
+
+  .hero-subtitle {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .hero-tagline {
+    font-size: 17px;
+    margin-bottom: 20px;
+  }
+
+  .hero-cta {
+    padding: 10px 28px;
+    font-size: 12px;
+  }
+
+  .hero-badges {
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .badge {
+    font-size: 15px;
+    padding: 3px 10px;
+  }
+
+  .equalizer {
+    height: 40px;
+    margin: 12px 0;
+  }
+
+  .eq-bar {
+    width: 8px;
+  }
+
+  .visitor-counter {
+    transform: scale(0.85);
+  }
+
+  /* Windows */
+  .win-window {
+    margin: 10px 6px;
+  }
+
+  .win-titlebar {
+    padding: 3px 4px;
+    font-size: 13px;
+  }
+
+  .win-titlebar .title-left span:not(.title-icon) {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .win-menubar {
+    display: none;
+  }
+
+  .win-content {
+    padding: 12px 10px;
+  }
+
+  .win-statusbar {
+    font-size: 12px;
+  }
+
+  .section-container {
+    padding: 8px 6px 30px;
+  }
+
+  /* About */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .about-text {
+    font-size: 16px;
+  }
+
+  .stat-item {
+    font-size: 16px;
+    padding: 6px 0;
+  }
+
+  /* Services */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .service-card {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: auto auto;
+    text-align: left;
+    gap: 2px 10px;
+  }
+
+  .service-icon {
+    font-size: 36px;
+    grid-row: 1 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+
+  .service-title {
+    font-size: 9px;
+    align-self: end;
+  }
+
+  .service-desc {
+    font-size: 15px;
+    align-self: start;
+  }
+
+  /* Mixes */
+  .mixes-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .mix-title {
+    font-size: 9px;
+  }
+
+  .mix-description {
+    font-size: 14px;
+  }
+
+  /* Live */
+  .live-screen {
+    padding: 24px 12px;
+    min-height: 140px;
+  }
+
+  .no-signal {
+    font-size: 12px;
+  }
+
+  .live-schedule-text {
+    font-size: 15px;
+  }
+
+  .live-indicator {
+    font-size: 10px;
+    padding: 6px 14px;
+  }
+
+  /* Booking Form */
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  .form-group label {
+    font-size: 15px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px; /* prevents iOS zoom */
+    padding: 8px 6px;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .checkbox-label {
+    font-size: 15px;
+    padding: 4px 0;
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+
+  .form-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .btn-95 {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 20px;
+    font-size: 17px;
+  }
+
+  /* Contact */
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .contact-card {
+    padding: 10px;
+  }
+
+  .contact-icon {
+    font-size: 24px;
+    width: 34px;
+  }
+
+  .contact-info-text {
+    font-size: 15px;
+  }
+
+  /* Footer */
+  .footer-bar {
+    margin: 0 6px 50px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  /* Marquee */
+  .marquee-bar {
+    font-size: 15px;
+  }
+
+  /* Construction banner */
+  .construction-banner {
+    font-size: 8px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+
+  /* Taskbar mobile */
+  .taskbar {
+    height: 40px;
+    padding: 2px 4px;
+    gap: 3px;
+  }
+
+  .start-button {
+    height: 32px;
+    padding: 2px 6px;
+    font-size: 14px;
+  }
+
+  .start-button .win-logo {
+    width: 16px;
+    height: 16px;
+  }
+
+  .taskbar-item {
+    height: 30px;
+    padding: 2px 6px;
+    font-size: 13px;
+  }
+
+  .taskbar-item span:nth-child(2) {
+    display: none;
+  }
+
+  .taskbar-clock {
+    font-size: 13px;
+    padding: 2px 6px;
+    gap: 4px;
+  }
+
+  /* Start Menu mobile */
+  .start-menu {
+    bottom: 40px;
+    width: 200px;
+  }
+
+  .start-menu-item {
+    padding: 8px 12px;
+    font-size: 15px;
+  }
+
+  /* Dialog mobile */
+  .dialog-box {
+    max-width: 92%;
+  }
+
+  .dialog-content {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .dialog-icon {
+    font-size: 28px;
+  }
+
+  .dialog-text {
+    font-size: 15px;
+  }
+
+  /* Disable custom cursor on touch */
+  body {
+    cursor: auto;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .hero-logo {
+    font-size: 16px;
+  }
+
+  .hero-subtitle {
+    font-size: 17px;
+  }
+
+  .hero-tagline {
+    font-size: 15px;
+  }
+
+  .hero-cta {
+    font-size: 10px;
+    padding: 8px 20px;
+  }
+
+  .stat-item {
+    font-size: 14px;
+  }
+
+  .service-title {
+    font-size: 8px;
+  }
+
+  .live-schedule-text p {
+    font-size: 13px;
+  }
+}
+
+/* ===================== ANIMATIONS ===================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===================== START MENU ===================== */
+.start-menu {
+  display: none;
+  position: fixed;
+  bottom: 36px;
+  left: 0;
+  width: 220px;
+  background: var(--win-gray);
+  box-shadow: var(--border-window);
+  z-index: 99998;
+}
+
+.start-menu.show {
+  display: block;
+  animation: windowOpen 0.15s ease-out;
+}
+
+.start-menu-sidebar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 28px;
+  background: linear-gradient(to top, var(--win-blue), #000080);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+}
+
+.start-menu-sidebar span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: #ccc;
+  font-family: var(--font-system);
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.start-menu-items {
+  margin-left: 28px;
+  padding: 4px 0;
+}
+
+.start-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  font-family: var(--font-system);
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--win-black);
+}
+
+.start-menu-item:hover {
+  background: var(--win-blue);
+  color: #fff;
+}
+
+.start-menu-item .menu-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.start-menu-divider {
+  height: 1px;
+  background: #808080;
+  margin: 2px 12px;
+  border-bottom: 1px solid #fff;
+}
+
+/* ===================== VISITOR COUNTER ===================== */
+.visitor-counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #000;
+  padding: 4px 10px;
+  margin: 10px 0;
+  box-shadow: var(--border-sunken);
+}
+
+.counter-digit {
+  background: #001a00;
+  color: var(--win-green);
+  font-family: var(--font-system);
+  font-size: 22px;
+  padding: 2px 4px;
+  min-width: 18px;
+  text-align: center;
+  border: 1px solid #003300;
+}
+
+/* Under construction GIF-style */
+.construction-banner {
+  background: var(--win-yellow);
+  color: var(--win-black);
+  padding: 6px 16px;
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  animation: constructionBlink 1s infinite;
+}
+
+@keyframes constructionBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.construction-stripes {
+  width: 30px;
+  height: 16px;
+  background: repeating-linear-gradient(
+    45deg,
+    #000,
+    #000 4px,
+    var(--win-yellow) 4px,
+    var(--win-yellow) 8px
+  );
+}
+</style>
+</head>
+<body>
+
+<!-- ============ DESKTOP ICONS ============ -->
+<nav class="desktop">
+  <a href="#about" class="desktop-icon">
+    <div class="icon-img">💿</div>
+    <span class="icon-label">Über Mich</span>
+  </a>
+  <a href="#services" class="desktop-icon">
+    <div class="icon-img">🎵</div>
+    <span class="icon-label">Services</span>
+  </a>
+  <a href="#mixes" class="desktop-icon">
+    <div class="icon-img">📀</div>
+    <span class="icon-label">Mixes</span>
+  </a>
+  <a href="#live" class="desktop-icon">
+    <div class="icon-img">📡</div>
+    <span class="icon-label">Live</span>
+  </a>
+  <a href="#booking" class="desktop-icon">
+    <div class="icon-img">📧</div>
+    <span class="icon-label">Buchen</span>
+  </a>
+</nav>
+
+<!-- ============ HERO SECTION ============ -->
+<section class="hero-section" id="home">
+  <div class="win-window hero-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">🎧</span>
+        <span>WaveDjing.exe - Willkommen</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-menubar">
+      <div class="win-menu-item"><span class="underline">D</span>atei</div>
+      <div class="win-menu-item"><span class="underline">B</span>earbeiten</div>
+      <div class="win-menu-item"><span class="underline">A</span>nsicht</div>
+      <div class="win-menu-item"><span class="underline">H</span>ilfe</div>
+    </div>
+    <div class="win-content hero-content">
+      <div class="equalizer">
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+      </div>
+      <h1 class="hero-logo">WaveDjing</h1>
+      <p class="hero-subtitle">Dein Sound. Dein Event. Dein Moment.</p>
+      <p class="hero-tagline">Professionelles DJing für Events, Geburtstage & Hochzeiten.<br>Von der perfekten Playlist bis zum unvergesslichen Drop.</p>
+      <div class="hero-badges">
+        <span class="badge">🎉 Events</span>
+        <span class="badge gold">🎂 Geburtstage</span>
+        <span class="badge red">💒 Hochzeiten</span>
+      </div>
+      <a href="#booking" class="hero-cta">▶ JETZT BUCHEN</a>
+      <div class="visitor-counter" style="margin-top: 20px;">
+        <span style="color:#0f0;font-size:14px;">Besucher:</span>
+        <span class="counter-digit">0</span>
+        <span class="counter-digit">0</span>
+        <span class="counter-digit">4</span>
+        <span class="counter-digit">7</span>
+        <span class="counter-digit">1</span>
+        <span class="counter-digit">3</span>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">Bereit</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">Beats: ON</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee-bar">
+  <span class="marquee-text">
+    ★ ★ ★ WaveDjing – Jetzt buchen für 2025 & 2026! ★ Hochzeiten ★ Geburtstage ★ Firmenevents ★ Clubnächte ★ Dein Beat. Dein Moment. ★ ★ ★ WaveDjing – Jetzt buchen für 2025 & 2026! ★ Hochzeiten ★ Geburtstage ★ Firmenevents ★ Clubnächte ★ Dein Beat. Dein Moment. ★ ★ ★
+  </span>
+</div>
+
+<!-- ============ ABOUT SECTION ============ -->
+<section class="section-container" id="about">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">💿</span>
+        <span>about_wavedjing.txt - Editor</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-menubar">
+      <div class="win-menu-item"><span class="underline">D</span>atei</div>
+      <div class="win-menu-item"><span class="underline">B</span>earbeiten</div>
+      <div class="win-menu-item"><span class="underline">F</span>ormat</div>
+    </div>
+    <div class="win-content">
+      <div class="about-grid">
+        <div class="about-text">
+          <p><strong>Hey, ich bin WaveDjing!</strong> 🎧</p>
+          <p>Musik ist mehr als nur Sound – es ist das Herzstück jeder Feier. Ob du die Tanzfläche bei deiner Hochzeit zum Beben bringen willst, deinen Geburtstag unvergesslich machen möchtest oder ein Firmenevent auf das nächste Level heben willst – ich liefere den perfekten Soundtrack.</p>
+          <p>Mit einem feinen Gespür für die Stimmung, professionellem Equipment und einer Leidenschaft für Musik sorge ich dafür, dass dein Event zu einem unvergesslichen Erlebnis wird.</p>
+          <p><em>„Die richtige Musik zur richtigen Zeit – das ist meine Kunst."</em></p>
+        </div>
+        <div class="stats-box">
+          <div style="color:#fff;font-family:var(--font-pixel);font-size:11px;margin-bottom:12px;text-align:center;">
+            C:\WAVEDJING\stats.dat
+          </div>
+          <div class="stat-item">
+            <span>Events gespielt</span>
+            <span class="stat-value">200+</span>
+          </div>
+          <div class="stat-item">
+            <span>Zufriedene Kunden</span>
+            <span class="stat-value">98%</span>
+          </div>
+          <div class="stat-item">
+            <span>Genres im Mix</span>
+            <span class="stat-value">25+</span>
+          </div>
+          <div class="stat-item">
+            <span>Stunden am Pult</span>
+            <span class="stat-value">1.500+</span>
+          </div>
+          <div class="stat-item">
+            <span>Songs in Bibliothek</span>
+            <span class="stat-value">15.000+</span>
+          </div>
+          <div class="stat-item">
+            <span>Status</span>
+            <span class="stat-value" style="color:var(--win-green);">ONLINE ●</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">Zeile 1, Spalte 1</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">UTF-8</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES SECTION ============ -->
+<section class="section-container" id="services">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">🎵</span>
+        <span>C:\WAVEDJING\services.exe</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">💒</div>
+          <div class="service-title">Hochzeiten</div>
+          <div class="service-desc">Dein schönster Tag verdient den perfekten Soundtrack. Von der Trauung bis zum letzten Tanz – stilvoll, emotional und unvergesslich.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎂</div>
+          <div class="service-title">Geburtstage</div>
+          <div class="service-desc">Ob 18., 30. oder 50. – jeder Geburtstag bekommt den Beat, den er verdient. Deine Lieblingssongs, perfekt gemixt.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🏢</div>
+          <div class="service-title">Firmenevents</div>
+          <div class="service-desc">Professionelle Beschallung für Firmenfeiern, Konferenzen und Team-Events. Business meets Beats.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎉</div>
+          <div class="service-title">Privatpartys</div>
+          <div class="service-desc">Hausparty, Gartenparty, Poolparty – egal wo gefeiert wird, der Sound stimmt immer.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🌙</div>
+          <div class="service-title">Club Nights</div>
+          <div class="service-desc">Deep House, Techno, EDM – ich bringe die Clubatmosphäre auf jede Tanzfläche. Nächte, die man nicht vergisst.</div>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">🎤</div>
+          <div class="service-title">Moderation</div>
+          <div class="service-desc">Nicht nur Musik – auch professionelle Moderation für dein Event. Ansagen, Spiele und Entertainment.</div>
+        </div>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">6 Services geladen</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">OK</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MIXES SECTION ============ -->
+<section class="section-container" id="mixes">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">📀</span>
+        <span>WaveDjing Media Player - Mixes</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-menubar">
+      <div class="win-menu-item"><span class="underline">D</span>atei</div>
+      <div class="win-menu-item"><span class="underline">W</span>iedergabe</div>
+      <div class="win-menu-item"><span class="underline">A</span>nsicht</div>
+    </div>
+    <div class="win-content">
+      <div style="text-align:center;margin-bottom:16px;">
+        <div class="construction-banner">
+          <div class="construction-stripes"></div>
+          🚧 COMING SOON 🚧
+          <div class="construction-stripes"></div>
+        </div>
+      </div>
+      <div class="mixes-grid">
+        <div class="mix-card">
+          <div class="coming-soon-overlay">🔒 COMING SOON</div>
+          <div class="mix-header">
+            <span class="mix-genre">House</span>
+            <span class="mix-duration">58:30</span>
+          </div>
+          <div class="mix-title">Summer Vibes 2025</div>
+          <div class="mix-description">Deep House & Tropical grooves für die warme Jahreszeit</div>
+          <div class="mix-player">
+            <button class="play-btn">▶</button>
+            <div class="waveform" id="waveform1"></div>
+          </div>
+        </div>
+        <div class="mix-card">
+          <div class="coming-soon-overlay">🔒 COMING SOON</div>
+          <div class="mix-header">
+            <span class="mix-genre">Charts</span>
+            <span class="mix-duration">45:00</span>
+          </div>
+          <div class="mix-title">Party Starter Pack</div>
+          <div class="mix-description">Die besten Hits für jede Party – non-stop gemixt</div>
+          <div class="mix-player">
+            <button class="play-btn">▶</button>
+            <div class="waveform" id="waveform2"></div>
+          </div>
+        </div>
+        <div class="mix-card">
+          <div class="coming-soon-overlay">🔒 COMING SOON</div>
+          <div class="mix-header">
+            <span class="mix-genre">Wedding</span>
+            <span class="mix-duration">1:15:00</span>
+          </div>
+          <div class="mix-title">Hochzeits-Klassiker</div>
+          <div class="mix-description">Romantische Hits & Tanzflächenfüller für den schönsten Tag</div>
+          <div class="mix-player">
+            <button class="play-btn">▶</button>
+            <div class="waveform" id="waveform3"></div>
+          </div>
+        </div>
+        <div class="mix-card">
+          <div class="coming-soon-overlay">🔒 COMING SOON</div>
+          <div class="mix-header">
+            <span class="mix-genre">Techno</span>
+            <span class="mix-duration">1:30:00</span>
+          </div>
+          <div class="mix-title">Midnight Session</div>
+          <div class="mix-description">Dark Techno & Melodic beats für lange Nächte</div>
+          <div class="mix-player">
+            <button class="play-btn">▶</button>
+            <div class="waveform" id="waveform4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">4 Mixes verfügbar (demnächst)</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">⏸ Gestoppt</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LIVE SECTION ============ -->
+<section class="section-container" id="live">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">📡</span>
+        <span>WaveDjing LIVE Stream</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-content live-content">
+      <div class="live-indicator">
+        <div class="live-dot"></div>
+        LIVE STATUS: OFFLINE
+      </div>
+      <div class="live-screen">
+        <div class="no-signal">KEIN SIGNAL</div>
+        <div style="color:#333;font-size:40px;margin-top:10px;">📺</div>
+      </div>
+      <div style="text-align:center;margin-top:12px;">
+        <div class="construction-banner">
+          <div class="construction-stripes"></div>
+          LIVE STREAMING - COMING SOON
+          <div class="construction-stripes"></div>
+        </div>
+      </div>
+      <div class="live-schedule-text">
+        <p>🔜 <strong>Live Streaming kommt bald!</strong></p>
+        <p>Hier wirst du bald live Sets von WaveDjing verfolgen können. Sei dabei, wenn der Beat droppt – direkt von deinem Browser aus.</p>
+        <p style="margin-top:8px;">Geplante Features:</p>
+        <p>🎧 Live DJ Sets in Echtzeit &nbsp;|&nbsp; 💬 Live Chat mit der Community &nbsp;|&nbsp; 🎵 Song Requests &nbsp;|&nbsp; 📅 Regelmäßige Stream-Termine</p>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">Stream: Offline</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">0 Zuschauer</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BOOKING SECTION ============ -->
+<section class="section-container" id="booking">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">📧</span>
+        <span>Buchungsanfrage - WaveDjing</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-menubar">
+      <div class="win-menu-item"><span class="underline">D</span>atei</div>
+      <div class="win-menu-item"><span class="underline">S</span>enden</div>
+      <div class="win-menu-item"><span class="underline">O</span>ptionen</div>
+    </div>
+    <div class="win-content">
+      <form class="booking-form" id="bookingForm" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field" onsubmit="handleBooking(event)">
+        <input type="hidden" name="form-name" value="booking">
+        <p style="display:none;"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
+        <div class="form-row">
+          <div class="form-group">
+            <label>👤 Name *</label>
+            <input type="text" name="name" required placeholder="Dein vollständiger Name">
+          </div>
+          <div class="form-group">
+            <label>📧 E-Mail *</label>
+            <input type="email" name="email" required placeholder="deine@email.com">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>📱 Telefon</label>
+            <input type="tel" name="phone" placeholder="+43 123 456 789">
+          </div>
+          <div class="form-group">
+            <label>📅 Wunschdatum *</label>
+            <input type="date" name="date" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>🎵 Art des Events *</label>
+            <select name="eventType" required>
+              <option value="">-- Bitte wählen --</option>
+              <option value="hochzeit">💒 Hochzeit</option>
+              <option value="geburtstag">🎂 Geburtstag</option>
+              <option value="firmenevent">🏢 Firmenevent</option>
+              <option value="privatparty">🎉 Privatparty</option>
+              <option value="clubnight">🌙 Club Night</option>
+              <option value="sonstiges">📌 Sonstiges</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>👥 Gästeanzahl (ca.)</label>
+            <select name="guests">
+              <option value="">-- Bitte wählen --</option>
+              <option value="bis-30">Bis 30 Personen</option>
+              <option value="30-80">30 - 80 Personen</option>
+              <option value="80-150">80 - 150 Personen</option>
+              <option value="150-300">150 - 300 Personen</option>
+              <option value="300+">300+ Personen</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>📍 Location / Ort</label>
+            <input type="text" name="location" placeholder="Name & Adresse der Location">
+          </div>
+          <div class="form-group">
+            <label>⏰ Spielzeit (Stunden)</label>
+            <select name="duration">
+              <option value="">-- Bitte wählen --</option>
+              <option value="3">3 Stunden</option>
+              <option value="4">4 Stunden</option>
+              <option value="5">5 Stunden</option>
+              <option value="6">6 Stunden</option>
+              <option value="8">8+ Stunden</option>
+            </select>
+          </div>
+        </div>
+
+        <label style="font-size:16px;margin-top:8px;display:block;">🎶 Gewünschte Musikrichtungen:</label>
+        <div class="checkbox-group">
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="charts"> Charts / Pop</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="house"> House / Deep House</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="hiphop"> Hip-Hop / R&B</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="techno"> Techno / EDM</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="80s90s"> 80er / 90er</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="latin"> Latin / Reggaeton</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="rock"> Rock / Indie</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="schlager"> Schlager / Volksmusik</label>
+          <label class="checkbox-label"><input type="checkbox" name="genre" value="mixed"> Querbeet / Alles</label>
+        </div>
+
+        <div class="form-group full" style="margin-top:8px;">
+          <label>💬 Nachricht / Sonderwünsche</label>
+          <textarea name="message" placeholder="Erzähl mir von deinem Event! Besondere Wünsche, Lieblingslieder, Ablauf..."></textarea>
+        </div>
+
+        <div class="form-buttons">
+          <button type="reset" class="btn-95">Abbrechen</button>
+          <button type="submit" class="btn-95 primary">📨 Anfrage senden</button>
+        </div>
+      </form>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">Alle Felder mit * sind Pflichtfelder</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;">Formular bereit</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT SECTION ============ -->
+<section class="section-container" id="contact">
+  <div class="win-window fade-in">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">📞</span>
+        <span>Kontakt - WaveDjing</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn">_</button>
+        <button class="win-btn">□</button>
+        <button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-content">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📧</div>
+          <div class="contact-info-text">
+            <strong>E-Mail</strong><br>
+            booking@wavedjing.com
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📱</div>
+          <div class="contact-info-text">
+            <strong>Telefon</strong><br>
+            +43 XXX XXX XXXX
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📸</div>
+          <div class="contact-info-text">
+            <strong>Instagram</strong><br>
+            @wavedjing
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">🎵</div>
+          <div class="contact-info-text">
+            <strong>SoundCloud</strong><br>
+            soundcloud.com/wavedjing
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="win-statusbar">
+      <div class="status-section">Antwortzeit: < 24 Stunden</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<div class="footer-bar">
+  © 2025 WaveDjing – Alle Rechte vorbehalten | Made with 🎧 & ❤️ | 
+  <a href="#home">Zurück nach oben</a>
+</div>
+
+<!-- ============ SUCCESS DIALOG ============ -->
+<div class="dialog-overlay" id="successDialog">
+  <div class="dialog-box">
+    <div class="win-titlebar">
+      <div class="title-left">
+        <span class="title-icon">ℹ️</span>
+        <span>WaveDjing</span>
+      </div>
+      <div class="win-titlebar-buttons">
+        <button class="win-btn" onclick="closeDialog()">✕</button>
+      </div>
+    </div>
+    <div class="dialog-content">
+      <div class="dialog-icon">✅</div>
+      <div class="dialog-text">
+        <strong>Anfrage erfolgreich gesendet!</strong><br><br>
+        Vielen Dank für deine Buchungsanfrage! Ich melde mich innerhalb von 24 Stunden bei dir. 🎧🎉
+      </div>
+    </div>
+    <div class="dialog-buttons">
+      <button class="btn-95 primary" onclick="closeDialog()">OK</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ START MENU ============ -->
+<div class="start-menu" id="startMenu">
+  <div class="start-menu-sidebar">
+    <span>WaveDjing 95</span>
+  </div>
+  <div class="start-menu-items">
+    <a href="#home" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">🏠</span> Home
+    </a>
+    <a href="#about" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">💿</span> Über Mich
+    </a>
+    <a href="#services" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">🎵</span> Services
+    </a>
+    <a href="#mixes" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">📀</span> Mixes
+    </a>
+    <a href="#live" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">📡</span> Live Stream
+    </a>
+    <div class="start-menu-divider"></div>
+    <a href="#booking" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">📧</span> Buchen
+    </a>
+    <a href="#contact" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">📞</span> Kontakt
+    </a>
+    <div class="start-menu-divider"></div>
+    <a href="#" class="start-menu-item" onclick="toggleStartMenu()">
+      <span class="menu-icon">🔌</span> Herunterfahren...
+    </a>
+  </div>
+</div>
+
+<!-- ============ TASKBAR ============ -->
+<div class="taskbar">
+  <button class="start-button" onclick="toggleStartMenu()">
+    <div class="win-logo"><div></div><div></div><div></div><div></div></div>
+    Start
+  </button>
+  <div class="taskbar-divider"></div>
+  <a href="#home" class="taskbar-item active"><span>🎧</span> <span>WaveDjing</span></a>
+  <a href="#booking" class="taskbar-item"><span>📧</span> <span>Buchen</span></a>
+  <a href="#mixes" class="taskbar-item"><span>📀</span> <span>Mixes</span></a>
+  <div class="taskbar-clock">
+    <span>🔊</span>
+    <span id="clock"></span>
+  </div>
+</div>
+
+<script>
+// ===== CLOCK =====
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2, '0');
+  const m = now.getMinutes().toString().padStart(2, '0');
+  document.getElementById('clock').textContent = h + ':' + m;
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+// ===== START MENU =====
+function toggleStartMenu() {
+  document.getElementById('startMenu').classList.toggle('show');
+}
+
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('startMenu');
+  const btn = document.querySelector('.start-button');
+  if (!menu.contains(e.target) && !btn.contains(e.target)) {
+    menu.classList.remove('show');
+  }
+});
+
+// ===== BOOKING FORM =====
+function handleBooking(e) {
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const origText = submitBtn.innerHTML;
+  submitBtn.innerHTML = '⏳ Sende...';
+  submitBtn.disabled = true;
+
+  const formData = new FormData(form);
+
+  fetch('/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(formData).toString()
+  })
+  .then(response => {
+    if (response.ok) {
+      document.getElementById('successDialog').classList.add('show');
+    } else {
+      alert('Fehler beim Senden. Bitte versuche es erneut oder kontaktiere mich direkt per E-Mail.');
+    }
+  })
+  .catch(() => {
+    alert('Netzwerkfehler. Bitte prüfe deine Verbindung.');
+  })
+  .finally(() => {
+    submitBtn.innerHTML = origText;
+    submitBtn.disabled = false;
+  });
+}
+
+function closeDialog() {
+  document.getElementById('successDialog').classList.remove('show');
+  document.getElementById('bookingForm').reset();
+}
+
+// ===== WAVEFORMS =====
+function generateWaveform(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  for (let i = 0; i < 50; i++) {
+    const line = document.createElement('div');
+    line.className = 'wave-line';
+    line.style.height = (Math.random() * 24 + 4) + 'px';
+    container.appendChild(line);
+  }
+}
+
+generateWaveform('waveform1');
+generateWaveform('waveform2');
+generateWaveform('waveform3');
+generateWaveform('waveform4');
+
+// ===== SCROLL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+// ===== VISITOR COUNTER (fun randomizer) =====
+const digits = document.querySelectorAll('.counter-digit');
+let count = 4713;
+setInterval(() => {
+  count += Math.floor(Math.random() * 3);
+  const str = count.toString().padStart(6, '0');
+  digits.forEach((d, i) => { d.textContent = str[i]; });
+}, 5000);
+</script>
+
+</body>
+</html>
