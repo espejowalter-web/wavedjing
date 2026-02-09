@@ -8,11 +8,11 @@
   status = 301
   force = true
 
-# Custom 404 page
+# 404 fallback
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200
+  status = 404
 
 # Security & performance headers
 [[headers]]
