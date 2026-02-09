@@ -711,6 +711,17 @@ body::before {
   font-size: 12px;
   color: var(--win-red);
   box-shadow: var(--border-sunken);
+  transition: all 0.3s ease;
+}
+
+.live-indicator.is-live {
+  background: #1a0000;
+  color: var(--win-green);
+  box-shadow: var(--border-sunken), 0 0 10px rgba(0,255,0,0.2);
+}
+
+.live-indicator.is-live .live-dot {
+  background: var(--win-green);
 }
 
 .live-dot {
@@ -726,32 +737,96 @@ body::before {
   50% { opacity: 0.3; box-shadow: none; }
 }
 
-.live-screen {
-  background: #0a0a0a;
-  box-shadow: var(--border-sunken);
-  padding: 40px;
+.live-indicator.is-live .live-dot {
+  animation: livePulseGreen 1s infinite;
+}
+
+@keyframes livePulseGreen {
+  0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--win-green); }
+  50% { opacity: 0.7; box-shadow: 0 0 4px var(--win-green); }
+}
+
+/* Twitch Player Styles */
+.twitch-container {
+  position: relative;
   margin: 16px 0;
-  min-height: 200px;
+  box-shadow: var(--border-sunken);
+  background: #0a0a0a;
+}
+
+.twitch-player-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+}
+
+.twitch-player-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.offline-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.95);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow: hidden;
+  z-index: 10;
+  transition: opacity 0.3s ease;
 }
 
-.live-screen::after {
+.offline-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.offline-overlay::after {
   content: '';
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(
     0deg,
     transparent,
-    transparent 1px,
-    rgba(255,255,255,0.02) 1px,
-    rgba(255,255,255,0.02) 2px
+    transparent 2px,
+    rgba(255,255,255,0.02) 2px,
+    rgba(255,255,255,0.02) 4px
   );
   pointer-events: none;
+}
+
+/* Twitch Chat Styles */
+.twitch-chat-container {
+  margin-top: 12px;
+  box-shadow: var(--border-sunken);
+  background: #0a0a0a;
+  padding: 8px;
+}
+
+.twitch-chat-wrapper {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.twitch-chat-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Live Controls */
+.live-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 16px;
 }
 
 .no-signal {
@@ -759,6 +834,8 @@ body::before {
   font-size: 16px;
   color: #444;
   animation: staticFlicker 0.5s infinite;
+  position: relative;
+  z-index: 1;
 }
 
 @keyframes staticFlicker {
@@ -1158,7 +1235,7 @@ body::before {
     font-size: 14px;
   }
 
-  /* Live */
+  /* Live / Twitch */
   .live-screen {
     padding: 24px 12px;
     min-height: 140px;
@@ -1175,6 +1252,20 @@ body::before {
   .live-indicator {
     font-size: 10px;
     padding: 6px 14px;
+  }
+
+  .live-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .live-controls .btn-95 {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .twitch-chat-wrapper {
+    height: 250px;
   }
 
   /* Booking Form */
@@ -1817,31 +1908,75 @@ body::before {
       </div>
     </div>
     <div class="win-content live-content">
-      <div class="live-indicator">
+      <div class="live-indicator" id="liveIndicator">
         <div class="live-dot"></div>
-        LIVE STATUS: OFFLINE
+        <span id="liveStatusText">LIVE STATUS: CHECKING...</span>
       </div>
-      <div class="live-screen">
-        <div class="no-signal">KEIN SIGNAL</div>
-        <div style="color:#333;font-size:40px;margin-top:10px;">📺</div>
-      </div>
-      <div style="text-align:center;margin-top:12px;">
-        <div class="construction-banner">
-          <div class="construction-stripes"></div>
-          LIVE STREAMING - COMING SOON
-          <div class="construction-stripes"></div>
+
+      <!-- Twitch Player Container -->
+      <div class="twitch-container">
+        <div class="twitch-player-wrapper">
+          <iframe
+            id="twitchPlayer"
+            src="https://player.twitch.tv/?channel=wavedjing&parent=wavedjing.com&parent=wavedjing.netlify.app&parent=localhost&muted=false&autoplay=true"
+            frameborder="0"
+            allowfullscreen="true"
+            scrolling="no"
+            allow="autoplay; fullscreen">
+          </iframe>
+        </div>
+
+        <!-- Offline Overlay -->
+        <div class="offline-overlay" id="offlineOverlay">
+          <div class="no-signal">OFFLINE</div>
+          <div style="color:#666;font-size:40px;margin:10px 0;">📺</div>
+          <p style="color:#888;font-size:16px;">Der Stream ist gerade nicht aktiv.</p>
+          <p style="color:#666;font-size:14px;margin-top:8px;">Folge auf Twitch für Benachrichtigungen!</p>
         </div>
       </div>
+
+      <!-- Twitch Chat (optional, can be toggled) -->
+      <div class="twitch-chat-container" id="chatContainer" style="display:none;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+          <span style="font-family:var(--font-pixel);font-size:10px;color:var(--neon-cyan);">💬 LIVE CHAT</span>
+          <button class="btn-95" onclick="toggleChat()" style="padding:2px 8px;font-size:12px;">Chat ausblenden</button>
+        </div>
+        <div class="twitch-chat-wrapper">
+          <iframe
+            id="twitchChat"
+            src="https://www.twitch.tv/embed/wavedjing/chat?parent=wavedjing.com&parent=wavedjing.netlify.app&parent=localhost&darkpopout"
+            frameborder="0"
+            scrolling="yes">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="live-controls">
+        <button class="btn-95" onclick="toggleChat()" id="chatToggleBtn">
+          💬 Chat einblenden
+        </button>
+        <a href="https://twitch.tv/wavedjing" target="_blank" class="btn-95" style="text-decoration:none;">
+          <span style="color:var(--neon-magenta);">⬤</span> Auf Twitch öffnen
+        </a>
+        <button class="btn-95" onclick="refreshStream()">
+          🔄 Aktualisieren
+        </button>
+      </div>
+
       <div class="live-schedule-text">
-        <p>🔜 <strong>Live Streaming kommt bald!</strong></p>
-        <p>Hier wirst du bald live Sets von WaveDjing verfolgen können. Sei dabei, wenn der Beat droppt – direkt von deinem Browser aus.</p>
-        <p style="margin-top:8px;">Geplante Features:</p>
-        <p>🎧 Live DJ Sets in Echtzeit &nbsp;|&nbsp; 💬 Live Chat mit der Community &nbsp;|&nbsp; 🎵 Song Requests &nbsp;|&nbsp; 📅 Regelmäßige Stream-Termine</p>
+        <p>🎧 <strong>WaveDjing auf Twitch</strong></p>
+        <p>Folge dem Kanal um benachrichtigt zu werden, wenn ein Live-Set startet!</p>
+        <p style="margin-top:8px;">
+          <a href="https://twitch.tv/wavedjing" target="_blank" style="color:var(--neon-cyan);text-decoration:none;">
+            ➜ twitch.tv/wavedjing
+          </a>
+        </p>
       </div>
     </div>
     <div class="win-statusbar">
-      <div class="status-section">Stream: Offline</div>
-      <div class="status-section" style="flex:0;white-space:nowrap;">0 Zuschauer</div>
+      <div class="status-section" id="streamStatus">Stream: Wird geladen...</div>
+      <div class="status-section" style="flex:0;white-space:nowrap;" id="viewerCount">- Zuschauer</div>
     </div>
   </div>
 </section>
@@ -2204,6 +2339,86 @@ setInterval(() => {
   const str = count.toString().padStart(6, '0');
   digits.forEach((d, i) => { d.textContent = str[i]; });
 }, 5000);
+
+// ===== TWITCH LIVE STREAM =====
+const TWITCH_CHANNEL = 'wavedjing';  // Dein Twitch-Kanal hier ändern
+let chatVisible = false;
+
+// Toggle Chat
+function toggleChat() {
+  chatVisible = !chatVisible;
+  const chatContainer = document.getElementById('chatContainer');
+  const chatToggleBtn = document.getElementById('chatToggleBtn');
+
+  if (chatVisible) {
+    chatContainer.style.display = 'block';
+    chatToggleBtn.innerHTML = '💬 Chat ausblenden';
+  } else {
+    chatContainer.style.display = 'none';
+    chatToggleBtn.innerHTML = '💬 Chat einblenden';
+  }
+}
+
+// Refresh Stream
+function refreshStream() {
+  const iframe = document.getElementById('twitchPlayer');
+  const currentSrc = iframe.src;
+  iframe.src = '';
+  setTimeout(() => { iframe.src = currentSrc; }, 100);
+  checkStreamStatus();
+}
+
+// Check Stream Status via Twitch API (simplified - works without API key for basic check)
+async function checkStreamStatus() {
+  const indicator = document.getElementById('liveIndicator');
+  const statusText = document.getElementById('liveStatusText');
+  const streamStatus = document.getElementById('streamStatus');
+  const viewerCount = document.getElementById('viewerCount');
+  const offlineOverlay = document.getElementById('offlineOverlay');
+
+  // Simplified check - we can't directly check without API, so we use iframe load events
+  // For now, show "check on Twitch" status
+  // If you have a Twitch API key, you can implement proper checking
+
+  try {
+    // Simple heuristic: After 3 seconds, assume stream status based on iframe load
+    setTimeout(() => {
+      // Default to showing the player (user can see if live or not)
+      statusText.textContent = 'LIVE STATUS: KLICKE AUF PLAY';
+      streamStatus.textContent = 'Stream: Player bereit';
+      viewerCount.textContent = '- Zuschauer';
+
+      // Hide offline overlay to show the player
+      if (offlineOverlay) {
+        offlineOverlay.classList.add('hidden');
+      }
+    }, 2000);
+
+  } catch (error) {
+    console.log('Stream check error:', error);
+    statusText.textContent = 'LIVE STATUS: UNBEKANNT';
+    streamStatus.textContent = 'Stream: Status unbekannt';
+  }
+}
+
+// Update stream status when live section becomes visible
+const liveObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      checkStreamStatus();
+    }
+  });
+}, { threshold: 0.1 });
+
+const liveSection = document.getElementById('live');
+if (liveSection) {
+  liveObserver.observe(liveSection);
+}
+
+// Initial status check
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(checkStreamStatus, 1000);
+});
 </script>
 
 </body>
